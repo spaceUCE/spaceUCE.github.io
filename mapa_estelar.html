@@ -1,0 +1,247 @@
+<html>
+
+<head>
+  <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin="" />
+  <link rel="stylesheet" as="style" onload="this.rel='stylesheet'"
+    href="https://fonts.googleapis.com/css2?display=swap&family=Noto+Sans%3Awght%40400%3B500%3B700%3B900&family=Space+Grotesk%3Awght%40400%3B500%3B700" />
+
+  <title>Stitch Design</title>
+  <link rel="icon" type="image/x-icon" href="data:image/x-icon;base64," />
+
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Consulta datos meteorológicos, visualiza estaciones y eventos con OrionX.">
+  <title>Club OrionX - Estacion Meteorologica</title>
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800">
+  <link rel="stylesheet" href="styles/style.css">
+  <link rel="stylesheet" href="styles/tooplate-style.css">
+
+
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+
+  <style>
+    .service-item .icon {
+      /* Asegura un contenedor flexible para el icono */
+      display: flex;
+      justify-content: center;
+      /* Centra horizontalmente */
+      align-items: center;
+      /* Centra verticalmente */
+      width: 60px;
+      /* Tamaño fijo para el contenedor del icono */
+      height: 60px;
+      /* Tamaño fijo para el contenedor del icono */
+      margin: 0 auto 15px;
+      /* Centra el contenedor y añade margen inferior */
+    }
+
+    .service-item .icon img {
+      max-width: 100%;
+      /* La imagen no excederá el ancho de su contenedor */
+      max-height: 100%;
+      /* La imagen no excederá la altura de su contenedor */
+      height: auto;
+      /* Mantiene la proporción de la imagen */
+      object-fit: contain;
+      /* Asegura que la imagen se ajuste dentro del contenedor sin ser cortada o estirada */
+    }
+  </style>
+
+</head>
+
+<body>
+  <header
+    class="flex items-center justify-between whitespace-nowrap border-b border-solid border-b-[#293542] px-10 py-3 bg-[#14191f] dark group/design-root relative   overflow-x-hidden">
+    <div class="flex items-center gap-4 text-white">
+      <a class="text-white text-lg font-bold leading-tight tracking-[-0.015em]" href='index.html'>OrionX</a>
+    </div>
+    <div class="flex flex-1 justify-end gap-8">
+      <div class="flex items-center gap-9">
+        <a class="text-white text-sm font-medium leading-normal" href='index.html'>Universo</a>
+        <a class="text-white text-sm font-medium leading-normal" href='eventos.html'>Eventos</a>
+        <a class="text-white text-sm font-medium leading-normal" href="estacion_meteorologica.html">Mapas</a>
+      </div>
+    </div>
+  </header>
+  <div class="px-40 flex flex-1 justify-center py-5">
+    <div class="layout-content-container flex flex-col max-w-[960px] flex-1">
+      <div class="flex flex-wrap justify-between gap-3 p-4">
+        <p class="text-[#101418] tracking-light text-[32px] font-bold leading-tight min-w-72">Planetas</p>
+      </div>
+      <div class="grid grid-cols-[repeat(auto-fit,minmax(158px,1fr))] gap-3 p-4">
+        <div class="flex flex-col gap-3 text-center pb-3">
+          <div class="px-4">
+            <div class="w-full bg-center bg-no-repeat aspect-square bg-cover rounded-full"
+              style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuBJwgsF4gKYqNtNhQDuo9D8bK_ZsqfakZvkLK2qoH3rPRGlqoz0qDVVEE911s902FarW-rS-3tgz1OmCabZuwUGdohVYENLd4jo5B4sRu-4LEYLvYaTosX2MkAIkS14k8XX4RffbWfvv1OcoJD_mq9T8OsxgAMvcEjh_K5Rpa0SNXi0sYNVXVayYukyUzsWxB8qmr7ope17QaeF_B2ZEsUe81huxq6aenjstEwYZSJX09Wm3YU7kAiVpbuQkRBMVLzKBZ3J-sQ3erOp");'>
+            </div>
+          </div>
+          <div>
+            <p class="text-[#101418] text-base font-medium leading-normal">Mercurio</p>
+            <p class="text-[#5c738a] text-sm font-normal leading-normal">El planeta más pequeño de nuestro sistema
+              solar.</p>
+          </div>
+        </div>
+        <div class="flex flex-col gap-3 text-center pb-3">
+          <div class="px-4">
+            <div class="w-full bg-center bg-no-repeat aspect-square bg-cover rounded-full"
+              style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuB1oU9VCsbwBfif-6wsmBNDwZJWGYfSPNdTd9uuAFSsOImKr3ud3cBA-6Pz9XTd-Ui5xK54KoYP0SROzWrveYwd7cSyICizwyyrvF-sd0cdnQ9nz4X9tmgrEfJHZtWiV3_Kr1HM-FrQ0nENOoVCxlMFoS40TaaG0wX3x5WcoAhE5Z6mil_29sXJj_fu2LfIHgpAPRpCjmZ18rUL8m7bm653m3cnjCFZObQGS-40h-598zGinjxBeNXFcQAdjtlcRsiVFSNX3tt32Nrb");'>
+            </div>
+          </div>
+          <div>
+            <p class="text-[#101418] text-base font-medium leading-normal">Venus</p>
+            <p class="text-[#5c738a] text-sm font-normal leading-normal">Conocido por su densa y tóxica atmósfera.</p>
+          </div>
+        </div>
+        <div class="flex flex-col gap-3 text-center pb-3">
+          <div class="px-4">
+            <div class="w-full bg-center bg-no-repeat aspect-square bg-cover rounded-full"
+              style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuBPSKg9uQKr-6rZ9hslK2UPO-YZ14uLNYXxIJfvkLqOrjz31-CLsIqdzztshtC1YK2CKl60OeH4nHf4d4Fbhu0sKu4iAf8R4sCGyiYHgB88x5eCBLPfqsdTwlIXlCWPNCsIdr1F02XjhKl59c-rw2UHf4OGOj3ohZgiCAmr3Ci5mzM7ULPslJO_3N4iaLxE-G4ulsfIyygFBkog4clymLYDsqMRAG8Ob4BSNnttBl3Q6nbaR83nVxzl-5jouYNa3Rs-71dz9RQqOHyi");'>
+            </div>
+          </div>
+          <div>
+            <p class="text-[#101418] text-base font-medium leading-normal">Tierra</p>
+            <p class="text-[#5c738a] text-sm font-normal leading-normal">Nuestro planeta hogar, rebosante de vida.</p>
+          </div>
+        </div>
+        <div class="flex flex-col gap-3 text-center pb-3">
+          <div class="px-4">
+            <div class="w-full bg-center bg-no-repeat aspect-square bg-cover rounded-full"
+              style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuB4iIkuJdUevAMMo0fhpkh8dRdtD3atr7YqV0mkfCxuLWfcfMvkORoxU_EyNh8ud9clKStFzCyTGjaY7dwqrndvUM0JHum70nXXr86XcD2k7qIEXaa6bYKpGazPghq3cfQA7bUGPGFccyudtoeUN-D_3MUg-wBXougFKyM0-88Z8f6O3HO3CcWz6oc5pi7KJGSlVwWhard_6P0EJ_cT46ABRckDMiHY0y1B6GkBXGIHZK8VQGNmL9a4GBJZq9P0iv6Vmyc1s9hmbi6V");'>
+            </div>
+          </div>
+          <div>
+            <p class="text-[#101418] text-base font-medium leading-normal">Marte</p>
+            <p class="text-[#5c738a] text-sm font-normal leading-normal">El 'Planeta Rojo' con potencial para albergar
+              vida</p>
+          </div>
+        </div>
+        <div class="flex flex-col gap-3 text-center pb-3">
+          <div class="px-4">
+            <div class="w-full bg-center bg-no-repeat aspect-square bg-cover rounded-full"
+              style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuANqumBfTrYWuNUh0OEyyyW_e18ovU4uNiORWyWlTxpI1f1A6Wb_KsYhuRuGqEuPcjTcKh-I6i3Mgnucu-P-k3bqA44KpdruEE5yTmhOuaBFV_ef-8RpIudFAK8EY8gVPbUhYgAwEPRinndfLRx-_OPlemEcABojJaUasNkn6jQK4fXd2EeVPB5SsYLQXTIvZKpHUlBS37M3BWYjYQcdf-M-uWAjJKW12yvQMF7Lyi5ucV57CoHTsCnJ5ApDuxVkpFAh0HwQ9IMsHoO");'>
+            </div>
+          </div>
+          <div>
+            <p class="text-[#101418] text-base font-medium leading-normal">Jupiter</p>
+            <p class="text-[#5c738a] text-sm font-normal leading-normal">El planeta más grande con una tormenta gigante.
+            </p>
+          </div>
+        </div>
+        <div class="flex flex-col gap-3 text-center pb-3">
+          <div class="px-4">
+            <div class="w-full bg-center bg-no-repeat aspect-square bg-cover rounded-full"
+              style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuAwyek2NdE6eeNZX1EY3wx1mt3-hJ5aXDV5bMLAdg4jYIfNhek5X-55H2xAFtcSRBdw5hOupdKSSKbk2OJh_gIYa4J4tjbbCTrOmbnENJ89C_APQo4pm2YI2qhO1mfXSXHuF2zJQWCoGFkShAs8DmbiuDEmytsVA6aMgazHPkww1E6tnz1pyJFA-MCeiTSSj5IdPTCV_64fKEkC3G65CVw-WP00xf9jZoQEqc2A2K-4pOLl2P9aCELXCfa13zzBsbMowGgJu1Yip3J7");'>
+            </div>
+          </div>
+          <div>
+            <p class="text-[#101418] text-base font-medium leading-normal">Saturno</p>
+            <p class="text-[#5c738a] text-sm font-normal leading-normal">Famoso por sus impresionantes anillos.</p>
+          </div>
+        </div>
+        <div class="flex flex-col gap-3 text-center pb-3">
+          <div class="px-4">
+            <div class="w-full bg-center bg-no-repeat aspect-square bg-cover rounded-full"
+              style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuDiUKb7yhUwnTK3ZFFJhj6OfDbfqt-6wQhxb3IG0dMelMMwA8FQ1eNB12gBKV7vsVB4GPxQfalqbca5bsdFbr6d5KeSdEguT0fHxfRy3iqqWrMbSf2BZe35PbwaoVC0BMCqL09NvTWRCRiLsgndt0opSg5HAl6yDhC7OqwC9EyVC2h_q8Gc5WyxqWJbgcWyGDE0aVjLN-5XMnK7Jx34bG3hkn-lu5nxHhab2_7Ur6O1g7BDVj3j4LL52hPCt_JdcIuu_jK5BPVd14o-");'>
+            </div>
+          </div>
+          <div>
+            <p class="text-[#101418] text-base font-medium leading-normal">Urano</p>
+            <p class="text-[#5c738a] text-sm font-normal leading-normal">Un gigante frío y helado con un tenue sistema
+              de anillos.</p>
+          </div>
+        </div>
+        <div class="flex flex-col gap-3 text-center pb-3">
+          <div class="px-4">
+            <div class="w-full bg-center bg-no-repeat aspect-square bg-cover rounded-full"
+              style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuDzAw88nlz3x004Pf6HOeaauP6rEYL2Lt6pFQACMJ8hcXDc4FM6oYBiqv7HGyt6KUy4u5HX7QUlWeIFqPdLtyzsbgXBDZIR5V0_87rxAhS3h_D5VVd8qbVBel8HORqOjUz1Lbz-ZNLkfGI61JTzjUqz3kh6K4o-ZCqisv6mQI9JdzUmXguOkdkQmg4Y7fWQqkyNNcX7rtk0S0MGQTJubUGWutNSZO1hoKDAUdHfrS8kjrQ-Y0-tPWRIdVG549c5LOT9e3ozINwPsiDx");'>
+            </div>
+          </div>
+          <div>
+            <p class="text-[#101418] text-base font-medium leading-normal">Neptuno</p>
+            <p class="text-[#5c738a] text-sm font-normal leading-normal">El planeta más distante, un gigante de hielo
+              azul.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  </div>
+  </div>
+
+
+  <div id="weather-table" class="tabla-contenedor"></div>
+  <div id="weather-horizontal-table_days" class="tabla-contenedor"></div>
+  <div id="weather-horizontal-table_hours" class="tabla-contenedor"></div>
+  <div id="stations-table" class="tabla-contenedor"></div>
+  <div id="recomendaciones-txt" class="tabla-contenedor"></div>
+  <div id="stations-arduino-table" class="tabla-contenedor"></div>
+
+  <div id="about" class="page-section">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="section-heading text-center">
+            <h4>ACTIVIDADES</h4>
+            <div class="line-dec mx-auto"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-3 col-sm-6 col-12">
+          <div class="service-item first-service">
+            <div class="icon">
+              <img src="img/objetivos.png" alt="Objetivos">
+            </div>
+            <h4>OBJETIVOS</h4>
+            <p>Los Principales Objetivos del Proyecto.</p>
+          </div>
+        </div>
+        <div class="col-md-3 col-sm-6 col-12">
+          <div class="service-item second-service">
+            <div class="icon">
+              <img src="img/mapa%20estelar.png" alt="Mapa Estelar">
+            </div>
+            <h4>MAPA ESTELAR</h4>
+            <p>Visualiza constelaciones y planetas visibles según tu ubicación.</p>
+          </div>
+        </div>
+        <div class="col-md-3 col-sm-6 col-12">
+          <div class="service-item third-service" onclick="window.location.href='estacion_meteorologica.html'">
+            <div class="icon">
+              <img src="img/estacion-meteorologica.png" alt="Estación Meteorológica">
+            </div>
+            <h4>ESTACIÓN METEOROLOGICA</h4>
+            <p>Consulta datos climáticos en tiempo real desde nuestra estación.</p>
+          </div>
+        </div>
+        <div class="col-md-3 col-sm-6 col-12">
+          <div class="service-item fourth-service" onclick="window.location.href='chat_bot.html'">
+            <div class="icon">
+              <img src="img/chatbot.png" alt="Chat Bot">
+            </div>
+            <h4>CHAT BOT</h4>
+            <p>Conoce las recomendaciones que tenemos para tí, fechas clave para ver astros,
+              eclipses y condiciones climaticas.</p>
+          </div>
+        </div>
+        <div class="col-md-3 col-sm-6 col-12">
+          <div class="service-item five-service">
+            <div class="icon">
+              <img src="img/proximos%20eventos.png" alt="Próximos Eventos">
+            </div>
+            <h4>PROXIMOS EVENTOS DEL CLUB</h4>
+            <p>Consulta los próximos eventos astronómicos y actividades del club.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</body>
+
+</html>

@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    
+    <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin="" />
+    <link
+      rel="stylesheet"
+      as="style"
+      onload="this.rel='stylesheet'"
+      href="https://fonts.googleapis.com/css2?display=swap&amp;family=Noto+Sans%3Awght%40400%3B500%3B700%3B900&amp;family=Space+Grotesk%3Awght%40400%3B500%3B700"
+    />
+
+    <title>Stitch Design</title>
+    <link rel="icon" type="image/x-icon" href="data:image/x-icon;base64," />
+
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+
+
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+      <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta name="description" content="Consulta datos meteorológicos, visualiza estaciones y eventos con OrionX.">
+        <title>Club OrionX - Estacion Meteorologica</title>
+
+        <!-- <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" -->
+            <!-- integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" -->
+            <!-- crossorigin=""> -->
+        <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"> -->
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800">
+        <link rel="stylesheet" href="styles/style.css">
+        <link rel="stylesheet" href="styles/tooplate-style.css"> 
+        
+
+        <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  </head>
+
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: "Segoe UI", sans-serif;
+      background-color: #f5f5f5;
+    }
+
+    .container {
+      max-width: 700px;
+      margin: 0 auto;
+      padding: 2rem;
+      display: flex;
+      flex-direction: column;
+      height: 100vh;
+    }
+
+    .header {
+      font-size: 1.8rem;
+      font-weight: bold;
+      text-align: center;
+      margin-bottom: 1rem;
+    }
+
+    .chat-box {
+      flex: 1;
+      overflow-y: auto;
+      background: white;
+      padding: 1rem;
+      border-radius: 10px;
+      box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .message {
+      margin: 0.5rem 0;
+    }
+
+    .user {
+      text-align: right;
+      color: #333;
+    }
+
+    .bot {
+      text-align: left;
+      color: #0a0a0a;
+      background-color: #e6f0ff;
+      display: inline-block;
+      padding: 0.5rem 1rem;
+      border-radius: 8px;
+    }
+
+    .input-area {
+      display: flex;
+      flex-direction: column;
+      margin-top: 1rem;
+    }
+
+    input, textarea, button {
+      padding: 0.7rem;
+      margin-top: 0.5rem;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      font-size: 1rem;
+    }
+
+    button {
+      background-color: #007aff;
+      color: white;
+      cursor: pointer;
+      transition: 0.3s ease;
+    }
+
+    button:hover {
+      background-color: #005fcc;
+    }
+
+    label {
+      font-weight: 500;
+      margin-top: 0.5rem;
+    }
+  </style>
+
+   <header class="flex items-center justify-between whitespace-nowrap border-b border-solid border-b-[#293542] px-10 py-3 bg-[#14191f] dark group/design-root relative  overflow-x-hidden">
+           
+    
+    <div class="flex items-center gap-4 text-white">
+                <a class="text-white text-lg font-bold leading-tight tracking-[-0.015em]" href='index.html'>OrionX</a>
+            </div>
+            <div class="flex flex-1 justify-end gap-8">
+                <div class="flex items-center gap-9">
+                    <a class="text-white text-sm font-medium leading-normal" href='index.html'>Universo</a>
+                    <a class="text-white text-sm font-medium leading-normal" href='eventos.html'>Eventos</a>
+                    <a class="text-white text-sm font-medium leading-normal" href="estacion_meteorologica.html">Mapas</a>
+                </div>
+                <div class="flex gap-2">
+                    <button
+                        class="flex max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 bg-[#293542] text-white gap-2 text-sm font-bold leading-normal tracking-[0.015em] min-w-0 px-2.5">
+                        <div class="text-white" data-icon="MagnifyingGlass" data-size="20px" data-weight="regular">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20px" height="20px" fill="currentColor"
+                                viewBox="0 0 256 256">
+                                <path
+                                    d="M229.66,218.34l-50.07-50.06a88.11,88.11,0,1,0-11.31,11.31l50.06,50.07a8,8,0,0,0,11.32-11.32ZM40,112a72,72,0,1,1,72,72A72.08,72.08,0,0,1,40,112Z">
+                                </path>
+                            </svg>
+                        </div>
+                    </button>
+                </div>
+            </div>
+        </header>
+
+        
+</head>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<body>
+  
+  <div class="container">
+    <div class="header"> AstroChat</div>
+
+    <div class="chat-box" id="chatBox">
+      <!-- Mensajes aparecerán aquí -->
+    </div>
+
+    <div class="input-area">
+      <label for="city">Ciudad:</label>
+      <input type="text" id="city" placeholder="Ej. Quito, Ecuador" />
+
+      <label for="date">Fecha:</label>
+      <input type="date" id="date" />
+
+      <label for="message">¿Qué quieres saber del cielo?</label>
+      <textarea id="message" placeholder="Ej. ¿Qué puedo ver en el cielo?" rows="2"></textarea>
+
+      <button onclick="sendMessage()">Consultar</button>
+    </div>
+  </div>
+
+<script>
+  window.onload = () => {
+    const today = new Date().toISOString().split('T')[0];
+    document.getElementById("date").value = today;
+  };
+
+  function addMessage(text, sender) {
+    const chatBox = document.getElementById("chatBox");
+    const div = document.createElement("div");
+    div.classList.add("message");
+    div.classList.add(sender);
+    div.innerHTML = text;
+    chatBox.appendChild(div);
+    chatBox.scrollTop = chatBox.scrollHeight;
+  }
+
+  async function sendMessage() {
+    const city = document.getElementById("city").value.trim();
+    const date = document.getElementById("date").value;
+    const message = document.getElementById("message").value.trim();
+
+    if (!city || !message || !date) {
+      alert("Por favor, completa todos los campos.");
+      return;
+    }
+
+    addMessage(`Tú (${city}, ${date}): ${message}`, "user");
+
+    try {
+      const response = await fetch("https://chat-ega7.onrender.com/chat", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ city, message, date }),
+      });
+
+      if (!response.ok) throw new Error("Error en la respuesta del servidor");
+
+      const data = await response.json();
+      addMessage("Astrochat🤓☝: " + data.reply, "bot");
+    } catch (error) {
+      addMessage("Astrochat🤓☝: Error al conectar con el servidor.", "bot");
+      console.error(error);
+    }
+
+    document.getElementById("message").value = "";
+  }
+</script>
+
+</body>
+</html>
