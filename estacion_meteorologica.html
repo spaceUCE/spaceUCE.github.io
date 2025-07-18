@@ -1,0 +1,622 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Consulta datos meteorológicos, visualiza estaciones y eventos con OrionX.">
+    <title>Club OrionX - Estacion Meteorologica</title>
+
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+        integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800">
+    <link rel="stylesheet" href="styles/style2.css">
+    <link rel="stylesheet" href="styles/hero-slider2.css">
+    <link rel="stylesheet" href="styles/tooplate-style2.css">
+    <link rel="stylesheet" href="styles/style_pagina_mapas2.css" />
+
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+</head>
+
+<body>
+    <header
+        class="flex items-center justify-between whitespace-nowrap border-b border-solid border-b-[#293542] px-10 py-3 bg-[#14191f] dark group/design-root relative  overflow-x-hidden">
+        <div class="flex items-center gap-4 text-white">
+            <a class="text-white text-lg font-bold leading-tight tracking-[-0.015em]" href='index.html'>OrionX</a>
+        </div>
+        <div class="flex flex-1 justify-end gap-8">
+            <div class="flex items-center gap-9">
+                <a class="text-white text-sm font-medium leading-normal" href='index.html'>Universo</a>
+                <a class="text-white text-sm font-medium leading-normal" href="eventos.html">Eventos</a>
+                <a class="text-white text-sm font-medium leading-normal" href="#">Mapas</a>
+            </div>
+            <div class="flex gap-2">
+                <button
+                    class="flex max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 bg-[#293542] text-white gap-2 text-sm font-bold leading-normal tracking-[0.015em] min-w-0 px-2.5">
+                    <div class="text-white" data-icon="MagnifyingGlass" data-size="20px" data-weight="regular">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20px" height="20px" fill="currentColor"
+                            viewBox="0 0 256 256">
+                            <path
+                                d="M229.66,218.34l-50.07-50.06a88.11,88.11,0,1,0-11.31,11.31l50.06,50.07a8,8,0,0,0,11.32-11.32ZM40,112a72,72,0,1,1,72,72A72.08,72.08,0,0,1,40,112Z">
+                            </path>
+                        </svg>
+                    </div>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <div class="contenedor">
+        <div class="izquierda">
+            <div class="seccion-encabezado text-center my-5">
+                <h1 class="titulo-principal">Mapas Meteorológicos</h1>
+                <div class="line-dec mx-auto mt-2"></div>
+            </div>
+
+            <style>
+                .titulo-principal {
+                    font-size: 2.5rem;
+                    font-weight: 700;
+                    color: #2c3e50;
+                    position: relative;
+                    animation: fadeInDown 0.6s ease-in-out;
+                }
+
+                .line-dec {
+                    width: 80px;
+                    height: 4px;
+                    background: linear-gradient(90deg, #3498db, #2ecc71);
+                    border-radius: 2px;
+                    transition: width 0.3s ease-in-out;
+                }
+
+                .seccion-encabezado:hover .line-dec {
+                    width: 120px;
+                }
+
+                @keyframes fadeInDown {
+                    from {
+                        opacity: 0;
+                        transform: translateY(-15px);
+                    }
+
+                    to {
+                        opacity: 1;
+                        transform: translateY(0);
+                    }
+                }
+
+                @media (max-width: 768px) {
+                    .titulo-principal {
+                        font-size: 2rem;
+                    }
+
+                    .line-dec {
+                        width: 60px;
+                    }
+                }
+            </style>
+
+            <!-- Barra de busqueda -->
+            <div class="search-div">
+                <input type="text" id="locationInput" placeholder="Buscar localidad..." />
+                <button id="searchBtn">Buscar</button>
+            </div>
+            <!-- Mapa Leaflet -->
+            <div class="map-div">
+                <div id="map-leaflet"></div>
+            </div>
+
+            <!-- Selector de Overlay -->
+            <div id="portafolio" class="seccion-pagina">
+                <div class="seccion-encabezado ">
+                    <h4>VISTAS</h4>
+                    <div class="line-dec"></div>
+                </div>
+                <div class="categorias-seccion">
+                    <ul id="overlayList" class="overlay-list">
+                        <li data-overlay="wind">💨 Viento</li>
+                        <li data-overlay="temp">🌡️ Temperatura</li>
+                        <li data-overlay="pressure">🧭 Presión</li>
+                        <li data-overlay="rain">🌧️ Lluvia</li>
+                        <li data-overlay="clouds">☁️ Nubes</li>
+                        <li data-overlay="clouds-top">☁️ Nubes altas</li>
+                        <li data-overlay="clouds-mid">☁️ Nubes medias</li>
+                        <li data-overlay="clouds-bottom">☁️ Nubes bajas</li>
+                        <li data-overlay="fog">🌫️ Neblina</li>
+                        <li data-overlay="ceiling">🌅 Cielo despejado</li>
+                        <li data-overlay="dust">🔥 Polvo</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Mapa Windy -->
+            <div class="map-div">
+                <iframe src="windy_map.html" id="map-windy">
+                </iframe>
+            </div>
+
+        </div>
+        <div class="derecha">
+
+            <!-- Dato Recuperados de Visual Crossing -->
+            <div class="weather-panel-hora-actual">
+                <h2>🌍 <span id="ubicacion_nombre">Ubicación</span></h2>
+                <p class="weather-meta">
+                    📅 <strong><span id="fecha_actual">Día Actual</span></strong> a las <strong><span
+                            id="hora_actual">--:--</span></strong>
+                </p>
+
+                <div class="weather-details">
+                    <div><strong>🌐 Latitud:</strong> <span id="latitud">--</span></div>
+                    <div><strong>🌐 Longitud:</strong> <span id="longitud">--</span></div>
+                    <div><strong>🕓 Zona horaria:</strong> <span id="zona_horaria">--</span></div>
+
+                    <h3>🌤️ Condiciones actuales - Hora <span id="hora_actual">--:--</span></h3>
+                    <div><strong>🌥️ Condiciones:</strong> <span id="condiciones">--</span></div>
+                    <div><strong>🌡️ Temperatura:</strong> <span id="temperatura">--</span> °C</div>
+                    <div><strong>🥶 Sensación Térmica:</strong> <span id="sensacion">--</span> °C</div>
+                    <div><strong>💧 Humedad:</strong> <span id="humedad">--</span> %</div>
+                    <div><strong>💨 Viento:</strong> <span id="viento">--</span> km/h</div>
+                    <div><strong>☁️ Nubosidad:</strong> <span id="nubosidad">--</span> %</div>
+                    <div><strong>🔎 Visibilidad:</strong> <span id="visibilidad">--</span> km</div>
+                    <div><strong>📈 Presión:</strong> <span id="presion">--</span> hPa</div>
+                    <div><strong>🔆 UV:</strong> <span id="uv">--</span></div>
+                    <div><strong>🌅 Amanecer:</strong> <span id="amanecer">--</span></div>
+                    <div><strong>🌇 Anochecer:</strong> <span id="anochecer">--</span></div>
+                    <div><strong>🌙 Fase lunar:</strong> <span id="fase_lunar">--</span></div>
+                </div>
+            </div>
+
+            <!-- Dato Arduino -->
+            <pre id="datosArduino"></pre>
+            <div class="weather-panel-hora-actual">
+                <h2>📡 Datos Estación Meteorológica Arduino</h2>
+                <p class="weather-meta">
+                    🗺️ <strong>Ubicación:</strong> Malchinguí<br>
+                    <strong>Estado de la Estación:</strong>
+                    <label id="estado_broker">--</label>
+                </p>
+                <div class="weather-details">
+                    <div class="inline-container">
+                        <div class="inline-item"><strong>📅 Fecha:</strong> <span id="fecha_arduino">--</span></div>
+                        <div class="inline-item"><strong>🕓 Hora:</strong> <span id="hora_arduino">--</span></div>
+                    </div>
+                    <div><strong>🌥️ Condición:</strong> <span id="condiciones_arduino">--</span></div>
+                    <div><strong>🌡️ Temperatura:</strong> <span id="temp_arduino">--</span></div>
+                    <div><strong>💧 Humedad:</strong> <span id="hum_arduino">--</span></div>
+                    <div><strong>💡 Luz:</strong> <span id="luz_arduino">--</span></div>
+                    <div><strong>🌧️ Lluvia (precipitación):</strong> <span id="lluvia_arduino">--</span></div>
+                    <div><strong>📈 Presión:</strong> <span id="presion_arduino">--</span></div>
+                    <div><strong>💨 Viento:</strong> <span id="viento_arduino">--</span></div>
+                    <div><strong>🌬️ Calidad del Aire:</strong> <span id="aire_arduino">--</span></div>
+                    <!-- <div><strong>🌙 Fase lunar:</strong> <span id="fase_lunar_arduino">--</span></div>
+                    <div><strong>🌅 Amanecer:</strong> <span id="amanecer_arduino">--</span></div>
+                    <div><strong>🌇 Anochecer:</strong> <span id="anochecer_arduino">--</span></div> -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Selector de tablas -->
+    <div id="portafolio" class="seccion-pagina">
+        <div class="seccion-encabezado">
+            <h4>TABLAS</h4>
+            <div class="line-dec"></div>
+        </div>
+        <div class="categorias-seccion">
+            <ul id="tablaSelector" class="tabla-selector">
+                <li data-tabla="condicionesActuales">🌤️ Condiciones actuales</li>
+                <li data-tabla="dia">📅 Día</li>
+                <li data-tabla="horas">🕒 Horas</li>
+                <li data-tabla="estaciones">🏫 Estaciones</li>
+                <li data-tabla="recomendaciones">📝 Recomendaciones</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Contenedores donde se insertarán las tablas -->
+    <div id="weather-table" class="tabla-contenedor"></div>
+    <div id="weather-horizontal-table_days" class="tabla-contenedor"></div>
+    <div id="weather-horizontal-table_hours" class="tabla-contenedor"></div>
+    <div id="stations-table" class="tabla-contenedor"></div>
+    <div id="recomendaciones-txt" class="tabla-contenedor"></div>
+    <div id="stations-arduino-table" class="tabla-contenedor"></div>
+
+    <div class="seccion-encabezado">
+        <h4>ESTACIÓN METEOROLÓGICA</h4>
+        <div class="line-dec"></div>
+    </div>
+
+    <div class="container my-5">
+        <div class="position-relative mx-auto" style="width: 900px; height: 500px; overflow: visible;">
+            <div id="carrusel" class="d-flex transition-all"
+                style="width: 100%; height: 100%; gap: 20px; justify-content: center; align-items: center;">
+                <!-- Slides se insertan con JS -->
+            </div>
+
+            <!-- Botones -->
+            <button onclick="prevSlide()"
+                class="position-absolute top-50 start-0 translate-middle-y btn btn-dark opacity-75">‹</button>
+            <button onclick="nextSlide()"
+                class="position-absolute top-50 end-0 translate-middle-y btn btn-dark opacity-75">›</button>
+        </div>
+    </div>
+
+    <style>
+        .slide {
+            position: relative;
+            overflow: hidden;
+            border-radius: 10px;
+        }
+
+        .play-icon {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 64px;
+            height: 64px;
+            background: rgba(0, 0, 0, 0.5);
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: opacity 0.3s;
+            z-index: 10;
+        }
+
+        .play-icon svg {
+            fill: white;
+            width: 30px;
+            height: 30px;
+        }
+
+        .play-icon.hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        button.position-absolute.start-0 {
+        font-size: 20px;
+        left: -40px !important;
+        }
+
+        button.position-absolute.end-0 {
+        right: -40px !important;
+        font-size: 20px;
+        }
+
+
+    </style>
+
+    <script>
+        const carrusel = document.getElementById('carrusel');
+
+        // Array con las rutas de imágenes o videos
+        const elementos = [
+            { tipo: 'img', src: 'img/Estacion_meteorologica/WhatsApp Image 2025-07-17 at 6.58.31 PM.jpeg' },
+            { tipo: 'img', src: 'img/Estacion_meteorologica/WhatsApp Image 2025-07-17 at 6.58.37 PM.jpeg' },
+            { tipo: 'video', src: 'img/Estacion_meteorologica/WhatsApp Video 2025-07-17 at 6.58.40 PM.mp4' },
+            { tipo: 'img', src: 'img/Estacion_meteorologica/WhatsApp Image 2025-07-17 at 6.58.36 PM.jpeg' },
+            { tipo: 'img', src: 'img/Estacion_meteorologica/WhatsApp Image 2025-07-17 at 6.58.41 PM.jpeg' },
+            { tipo: 'video', src: 'img/Estacion_meteorologica/WhatsApp Video 2025-07-17 at 7.28.36 PM.mp4' },
+            { tipo: 'img', src: 'img/Estacion_meteorologica/WhatsApp Image 2025-07-17 at 6.58.38 PM.jpeg' }
+        ];
+
+        let currentIndex = 0;
+
+        function crearSlide(tipo, src, isCentral) {
+            const div = document.createElement('div');
+            div.classList.add('slide');
+            div.style.transition = 'all 0.3s ease';
+            div.style.flex = isCentral ? '0 0 40%' : '0 0 30%';
+            div.style.transform = isCentral ? 'scale(1)' : 'scale(0.8)';
+            div.style.opacity = isCentral ? '1' : '0.5';
+
+            if (tipo === 'img') {
+                const img = document.createElement('img');
+                img.src = src;
+                img.className = 'w-100 h-100 shadow';
+                img.style.objectFit = 'cover';
+                div.appendChild(img);
+            } else if (tipo === 'video') {
+                const video = document.createElement('video');
+                video.src = src;
+                video.className = 'w-100 h-100 shadow';
+                video.style.objectFit = 'cover';
+                video.muted = true;
+                video.controls = false;
+                video.loop = true;
+
+                div.appendChild(video);
+
+                if (isCentral) {
+                    // Crear icono play
+                    const playIcon = document.createElement('div');
+                    playIcon.classList.add('play-icon');
+                    playIcon.innerHTML = `
+                    <svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+                        <polygon points="16,12 52,32 16,52" />
+                    </svg>
+                    `;
+                    div.appendChild(playIcon);
+
+                    // Controlar play/pause
+                    playIcon.addEventListener('click', () => {
+                        if (video.paused) {
+                            video.play();
+                            playIcon.classList.add('hidden');
+                        } else {
+                            video.pause();
+                            playIcon.classList.remove('hidden');
+                        }
+                    });
+
+                    video.addEventListener('pause', () => {
+                        playIcon.classList.remove('hidden');
+                    });
+
+                    video.addEventListener('play', () => {
+                        playIcon.classList.add('hidden');
+                    });
+                }
+            }
+
+            return div;
+        }
+
+        function renderSlides() {
+            carrusel.innerHTML = '';
+
+            const total = elementos.length;
+            const prevIndex = (currentIndex - 1 + total) % total;
+            const nextIndex = (currentIndex + 1) % total;
+
+            const indices = [prevIndex, currentIndex, nextIndex];
+
+            indices.forEach((idx, i) => {
+                const isCentral = (i === 1);
+                const elemento = elementos[idx];
+                const div = crearSlide(elemento.tipo, elemento.src, isCentral);
+                carrusel.appendChild(div);
+            });
+
+            // Pausar todos los videos excepto el central
+            document.querySelectorAll('#carrusel video').forEach((video, i) => {
+                if (i !== 1) {
+                    video.pause();
+                    video.currentTime = 0;
+                }
+            });
+        }
+
+        function nextSlide() {
+            currentIndex = (currentIndex + 1) % elementos.length;
+            renderSlides();
+        }
+
+        function prevSlide() {
+            currentIndex = (currentIndex - 1 + elementos.length) % elementos.length;
+            renderSlides();
+        }
+
+        renderSlides();
+    </script>
+
+    <div class="seccion-encabezado">
+        <h4>ACTIVIDADES</h4>
+        <div class="line-dec"></div>
+    </div>
+
+    <!-- Carrusel personalizado de servicios -->
+    <div id="serviceCarousel" class="carousel slide" data-bs-ride="carousel">
+        <div class="carousel-inner">
+
+            <div class="carousel-item active">
+                <div class="d-flex justify-content-center">
+                    <div class="service-item m-3" onclick="window.location.href='objetivos.html'">
+                        <div class="icon">
+                            <img src="img/objetivos.png" alt="Objetivos" style="width: 32px; height: 32px;">
+                        </div>
+                        <h4>OBJETIVOS</h4>
+                        <p>Objetivos del proyecto</p>
+                    </div>
+
+                    <div class="service-item m-3" onclick="window.location.href='mapa_estelar.html'">
+                        <div class="icon">
+                            <img src="img/mapa estelar.png" alt="Mapa Estelar" style="width: 32px; height: 32px;">
+                        </div>
+                        <h4>MAPA ESTELAR</h4>
+                        <p>Visualiza constelaciones y planetas visibles según tu ubicación.</p>
+                    </div>
+
+                    <div class="service-item m-3" onclick="window.location.href='estacion_meteorologica.html'">
+                        <div class="icon">
+                            <img src="img/estacion-meteorologica.png" alt="Estación Meteorológica"
+                                style="width: 32px; height: 32px;">
+                        </div>
+                        <h4>ESTACIÓN METEOROLÓGICA</h4>
+                        <p>Consulta datos climáticos en tiempo real desde nuestra estación.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="carousel-item">
+                <div class="d-flex justify-content-center">
+                    <div class="service-item m-3" onclick="window.location.href='chat_bot.html'">
+                        <div class="icon">
+                            <img src="img/chatbot.png" alt="Chat Bot" style="width: 32px; height: 32px;">
+                        </div>
+                        <h4>CHAT BOT</h4>
+                        <p>Conoce las recomendaciones que tenemos para ti, fechas clave para ver astros, eclipses y
+                            clima.</p>
+                    </div>
+                    <div class="service-item m-3" onclick="window.location.href='eventos.html'">
+                        <div class="icon">
+                            <img src="img/proximos eventos.png" alt="Próximos Eventos del Club"
+                                style="width: 32px; height: 32px;">
+                        </div>
+                        <h4>PRÓXIMOS EVENTOS</h4>
+                        <p>Consulta eventos astronómicos y actividades del club.</p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <button class="carousel-control-prev" type="button" data-bs-target="#serviceCarousel" data-bs-slide="prev">
+            <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="black" viewBox="0 0 16 16">
+                <path d="M11 1.5L4.5 8 11 14.5V1.5z"/>
+            </svg>
+        </button>
+
+        <button class="carousel-control-next" type="button" data-bs-target="#serviceCarousel" data-bs-slide="next">
+            <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="black" viewBox="0 0 16 16">
+                <path d="M5 1.5L11.5 8 5 14.5V1.5z"/>
+            </svg>
+        </button>
+    </div>
+
+    <style>
+        #serviceCarousel .carousel-inner {
+            min-height: 200px; /* Ajusta según tu diseño */
+            position: relative;
+            padding: 20px;
+        }
+
+        /* Contenedor del slide */
+        .carousel-item .d-flex {
+            justify-content: center; /* centrar elementos */
+            flex-wrap: nowrap; /* mantenerlos en línea */
+            gap: 5px; /* espacio entre ítems */
+        }
+
+        /* Ítem individual */
+        .service-item {
+            width: 25%;
+            height: 200px;
+            padding: 20px;
+            border-radius: 12px;
+            background-color: #ffffff;
+            text-align: center;
+            cursor: pointer;
+            box-shadow: 0 10px 15px rgba(0, 0, 0, 0.336);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            flex-shrink: 0;
+            font-weight: bold;
+        }
+
+        /* Efecto hover */
+        .service-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Centrado del icono */
+        .icon {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .icon img {
+            margin-bottom: 10px;
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+            max-width: 100%;
+        }
+    </style>
+
+    <!-- CONTENEDORES QUE MUESTRAN DATOS JSON - ELIMNAR -->
+    <!-- <section>
+            <h2>📦 Datos Nominatim</h2>
+            <pre id="json-output" class="json-container"></pre>
+        </section>
+        <section>
+            <h2>📦 Datos VISUAL CROSSING</h2>
+            <pre id="visualCrossingt" class="json-container"></pre>
+        </section>
+        <section>
+            <h2>📦 Datos ARDUINO</h2>
+            <pre id="DataArduino" class="json-container" ></pre>
+        </section> -->
+
+    <footer class="site-footer">
+        <div class="container">
+            <div class="row">
+            <div class="col-md-12 footer-content">
+                <p class="club-name">🌌 Club de Astronomía - OrionX</p>
+                <p class="project-info">Infraestructura de TI - II · Semestre 2025-2025 · UCE</p>
+                <p class="copyright-text">
+                &copy; 2025 <strong>OrionX</strong>
+                </p>
+            </div>
+            </div>
+        </div>
+    </footer>
+
+    <style>
+        .site-footer {
+        background: linear-gradient(to right, #0f172a, #1e293b);
+        color: #cbd5e1;
+        padding: 10px 0;
+        font-size: 14px;
+        text-align: center;
+        border-top: 3px solid #3b82f6;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        .footer-content p {
+        margin: 8px 0;
+        }
+
+        .club-name {
+        font-size: 16px;
+        font-weight: bold;
+        color: #ffffff;
+        letter-spacing: 1px;
+        }
+
+        .project-info {
+        font-size: 16px;
+        color: #94a3b8;
+        }
+
+        .footer-credit {
+        font-size: 14px;
+        color: #64748b;
+        }
+
+        .site-footer a {
+        color: #60a5fa;
+        text-decoration: none;
+        font-weight: bold;
+        }
+
+        .site-footer a:hover {
+        text-decoration: underline;
+        color: #93c5fd;
+        }
+    </style>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script src="js/plugins.js"></script>
+    <script src="js/main.js"></script>
+
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+        integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+    <script type="module" src="js/map_controller.js"></script>
+    <script src="https://unpkg.com/paho-mqtt@1.1.0/paho-mqtt-min.js"></script>
+    <script type="module" src="js/datos_arduino.js"></script>
+
+</body>
+
+</html>

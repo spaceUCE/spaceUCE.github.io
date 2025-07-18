@@ -1,0 +1,713 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Consulta datos meteorológicos, visualiza estaciones y eventos con OrionX.">
+    <title>Club OrionX - Estacion Meteorologica</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+          integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800">
+    <link rel="stylesheet" href="styles/style2.css">
+    <link rel="stylesheet" href="styles/tooplate-style2.css">
+    <link rel="stylesheet" href="styles/style_pagina_mapas2.css" />
+
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+
+    <style>
+      .service-item .icon {
+        /* Asegura un contenedor flexible para el icono */
+        display: flex;
+        justify-content: center;
+        /* Centra horizontalmente */
+        align-items: center;
+        /* Centra verticalmente */
+        width: 60px;
+        /* Tamaño fijo para el contenedor del icono */
+        height: 60px;
+        /* Tamaño fijo para el contenedor del icono */
+        margin: 0 auto 15px;
+        /* Centra el contenedor y añade margen inferior */
+      }
+
+      .service-item .icon img {
+        max-width: 100%;
+        /* La imagen no excederá el ancho de su contenedor */
+        max-height: 100%;
+        /* La imagen no excederá la altura de su contenedor */
+        height: auto;
+        /* Mantiene la proporción de la imagen */
+        object-fit: contain;
+        /* Asegura que la imagen se ajuste dentro del contenedor sin ser cortada o estirada */
+      }
+    </style>
+
+  </head>
+
+  <body>
+    <header
+      class="flex items-center justify-between whitespace-nowrap border-b border-solid border-b-[#293542] px-10 py-3 bg-[#14191f] dark group/design-root relative   overflow-x-hidden">
+      <div class="flex items-center gap-4 text-white">
+        <a class="text-white text-lg font-bold leading-tight tracking-[-0.015em]" href='index.html'>OrionX</a>
+      </div>
+      <div class="flex flex-1 justify-end gap-8">
+        <div class="flex items-center gap-9">
+          <a class="text-white text-sm font-medium leading-normal" href='index.html'>Universo</a>
+          <a class="text-white text-sm font-medium leading-normal" href='eventos.html'>Eventos</a>
+          <a class="text-white text-sm font-medium leading-normal" href="estacion_meteorologica.html">Mapas</a>
+        </div>
+      </div>
+    </header>
+    <div id="telescopio" class="page-section bg-[#0d1117] text-white py-5">
+      <div class="container">
+
+          <!-- Encabezado temático -->
+          <div class="text-center mb-5">
+              <h2 class="text-3xl font-bold mb-2">Modelo Digital Interactivo del Telescopio</h2>
+              <div class="line-dec"></div>
+              <p class="text-lg text-gray-300 max-w-2xl mx-auto">
+                  Descubre cómo funciona un telescopio astronómico y sus distintas monturas a través de un modelo tridimensional creado en Unity.
+                  Esta simulación permite explorar su estructura, funcionamiento y orientación hacia los astros.
+              </p>
+          </div>
+
+          <!-- Bloques informativos en 2 columnas -->
+          <div class="row text-white mb-4">
+            <!-- Estructura Mecánica -->
+            <div class="col-md-6 mb-3">
+              <div class="p-4 bg-[#1c2128] rounded-lg shadow-sm h-100 text-white">
+                <h5 class="fw-bold mb-3">🔭 Estructura Mecánica</h5>
+                <div class="line-dec1"></div>
+                <p style="color: #ffffff;">
+                  El modelo del telescopio incluye dos tipos de monturas: la <strong>montura azimutal</strong>, que se mueve en los ejes vertical y horizontal, y la <strong>montura ecuatorial</strong>, diseñada para seguir el movimiento de los astros mediante un solo eje alineado con el eje de rotación terrestre.
+                </p>
+                <div class="d-flex justify-content-between gap-3 mt-4">
+                  <div class="flex-fill text-center">
+                    <div class="bg-dark rounded shadow p-2">
+                      <p class="mb-2 fw-bold text-white">Montura Azimutal</p>
+                      <div class="bg-secondary rounded" style="height: 180px;">
+                        <img src="img/Monturas_telescopio/Montura_az.png" alt="Montura Azimutal" class="img-fluid rounded h-100 w-100 object-fit-cover">
+                      </div>
+                    </div>
+                  </div>
+                  <div class="flex-fill text-center">
+                    <div class="bg-dark rounded shadow p-2">
+                      <p class="mb-2 fw-bold text-white">Montura Ecuatorial</p>
+                      <div class="bg-secondary rounded" style="height: 180px;">
+                        <img src="img/Monturas_telescopio/Montura_ec.jpg" alt="Montura Ecuatorial" class="img-fluid rounded h-100 w-100 object-fit-cover">
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Simulación Visual -->
+            <div class="col-md-6 mb-3">
+              <div class="p-4 bg-[#1c2128] rounded-lg shadow-sm h-100 text-white">
+                <h5 class="fw-bold mb-3">🌌 Simulación Visual</h5>
+                <div class="line-dec1"></div>
+                <p style="color: #ffffff;">
+                  La simulación digital en Unity replica fielmente la estructura física, incluyendo las monturas azimutal y ecuatorial, permitiendo al usuario rotar, inclinar y observar cómo se comporta el telescopio ante distintas configuraciones.
+                </p>
+                <div class="d-flex justify-content-between gap-3 mt-4">
+                  <div class="flex-fill text-center">
+                    <div class="bg-dark rounded shadow p-2">
+                      <p class="mb-2 fw-bold text-white">Simulación Azimutal</p>
+                      <div class="bg-secondary rounded" style="height: 180px;">
+                        <img src="img/Monturas_telescopio/Montura_az_simulacion.png" alt="Simulación Azimutal" class="img-fluid rounded h-100 w-100 object-fit-cover">
+                      </div>
+                    </div>
+                  </div>
+                  <div class="flex-fill text-center">
+                    <div class="bg-dark rounded shadow p-2">
+                      <p class="mb-2 fw-bold text-white">Simulación Ecuatorial</p>
+                      <div class="bg-secondary rounded" style="height: 180px;">
+                        <img src="img/Monturas_telescopio/Montura_ec_simulacion.png" alt="Simulación Ecuatorial" class="img-fluid rounded h-100 w-100 object-fit-cover">
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+
+          <div class="container my-5">
+              <div class="position-relative mx-auto" style="overflow: hidden;">
+                  <div id="carrusel2" class="d-flex transition-all"
+                      style="gap: 20px; justify-content: center; align-items: center;">
+                      <!-- Slides se insertan con JS -->
+                  </div>
+
+                  <!-- Botones -->
+                  <button onclick="prevSlide2()"
+                      class="position-absolute top-50 start-0 translate-middle-y btn btn-dark opacity-75">‹</button>
+                  <button onclick="nextSlide2()"
+                      class="position-absolute top-50 end-0 translate-middle-y btn btn-dark opacity-75">›</button>
+              </div>
+          </div>
+
+          <style>
+              .slide {
+                  position: relative;
+                  overflow: hidden;
+                  border-radius: 10px;
+              }
+
+              .play-icon {
+                  position: absolute;
+                  top: 50%;
+                  left: 50%;
+                  transform: translate(-50%, -50%);
+                  width: 64px;
+                  height: 64px;
+                  background: rgba(0, 0, 0, 0.5);
+                  border-radius: 50%;
+                  cursor: pointer;
+                  display: flex;
+                  justify-content: center;
+                  align-items: center;
+                  transition: opacity 0.3s;
+                  z-index: 10;
+              }
+
+              .play-icon svg {
+                  fill: white;
+                  width: 30px;
+                  height: 30px;
+              }
+
+              .play-icon.hidden {
+                  opacity: 0;
+                  pointer-events: none;
+              }
+
+              .line-dec {
+                    width: 800px;
+                    height: 4px;
+                    background: linear-gradient(90deg, #3498db, #2ecc71);
+                    border-radius: 2px;
+                    transition: width 0.3s ease-in-out;
+                    margin: 0 auto;
+                    margin-bottom: 20px;
+                }
+              .line-dec1 {
+                    width: 200px;
+                    height: 4px;
+                    background: linear-gradient(90deg, #3498db, #2ecc71);
+                    border-radius: 2px;
+                    transition: width 0.3s ease-in-out;
+                    margin-bottom: 20px;
+                }
+          </style>
+
+          <script>
+              const carrusel2 = document.getElementById('carrusel2');
+
+              // Array con las rutas de imágenes o videos
+              const elementos = [
+                  { tipo: 'img', src: 'img/Monturas_telescopio/Captura de pantalla 2025-07-18 032107.png' },
+                  { tipo: 'img', src: 'img/Monturas_telescopio/Captura de pantalla 2025-07-18 032239.png' },
+                  { tipo: 'img', src: 'img/Monturas_telescopio/Captura de pantalla 2025-07-18 032320.png' },
+                  { tipo: 'img', src: 'img/Monturas_telescopio/Captura de pantalla 2025-07-18 032153.png' }
+              ];
+
+              let currentIndex2 = 0;
+
+              function crearSlide(tipo, src, isCentral) {
+                  const div = document.createElement('div');
+                  div.classList.add('slide');
+                  div.style.transition = 'all 0.3s ease';
+                  div.style.flex = isCentral ? '0 0 40%' : '0 0 30%';
+                  div.style.transform = isCentral ? 'scale(1)' : 'scale(0.8)';
+                  div.style.opacity = isCentral ? '1' : '0.5';
+
+                  if (tipo === 'img') {
+                      const img = document.createElement('img');
+                      img.src = src;
+                      img.className = 'w-100 h-100 shadow';
+                      img.style.objectFit = 'cover';
+                      div.appendChild(img);
+                  } else if (tipo === 'video') {
+                      const video = document.createElement('video');
+                      video.src = src;
+                      video.className = 'w-100 h-100 shadow';
+                      video.style.objectFit = 'cover';
+                      video.muted = true;
+                      video.controls = false;
+                      video.loop = true;
+
+                      div.appendChild(video);
+
+                      if (isCentral) {
+                          // Crear icono play
+                          const playIcon = document.createElement('div');
+                          playIcon.classList.add('play-icon');
+                          playIcon.innerHTML = `
+                          <svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+                              <polygon points="16,12 52,32 16,52" />
+                          </svg>
+                          `;
+                          div.appendChild(playIcon);
+
+                          // Controlar play/pause
+                          playIcon.addEventListener('click', () => {
+                              if (video.paused) {
+                                  video.play();
+                                  playIcon.classList.add('hidden');
+                              } else {
+                                  video.pause();
+                                  playIcon.classList.remove('hidden');
+                              }
+                          });
+
+                          video.addEventListener('pause', () => {
+                              playIcon.classList.remove('hidden');
+                          });
+
+                          video.addEventListener('play', () => {
+                              playIcon.classList.add('hidden');
+                          });
+                      }
+                  }
+
+                  return div;
+              }
+
+              function renderSlides() {
+                  carrusel2.innerHTML = '';
+
+                  const total = elementos.length;
+                  const prevIndex = (currentIndex2 - 1 + total) % total;
+                  const nextIndex = (currentIndex2 + 1) % total;
+
+                  const indices = [prevIndex, currentIndex2, nextIndex];
+
+                  indices.forEach((idx, i) => {
+                      const isCentral = (i === 1);
+                      const elemento = elementos[idx];
+                      const div = crearSlide(elemento.tipo, elemento.src, isCentral);
+                      carrusel2.appendChild(div);
+                  });
+
+                  // Pausar todos los videos excepto el central
+                  document.querySelectorAll('#carrusel video').forEach((video, i) => {
+                      if (i !== 1) {
+                          video.pause();
+                          video.currentTime = 0;
+                      }
+                  });
+              }
+
+              function nextSlide2() {
+                  currentIndex2 = (currentIndex2 + 1) % elementos.length;
+                  renderSlides();
+              }
+
+              function prevSlide2() {
+                  currentIndex2 = (currentIndex2 - 1 + elementos.length) % elementos.length;
+                  renderSlides();
+              }
+
+              renderSlides();
+          </script>
+          
+      </div>
+    </div>
+
+    <section class="bg-[#f8fafc] py-12 px-4">
+      <div class="container mx-auto max-w-5xl">
+
+        <!-- Título -->
+        <div class="text-center mb-12">
+          <h2 class="text-4xl font-extrabold text-[#0f172a]">🚀 Guía de Instalación del Simulador de Telescopio en Unity</h2>
+          <p class="text-gray-600 mt-4 text-lg">Sigue estos pasos para instalar y utilizar correctamente nuestro simulador interactivo conectado con Stellarium.</p>
+        </div>
+
+        <!-- Paso 1 -->
+        <div class="bg-slate-200 shadow-xl rounded-2xl p-8 mb-8 border-l-4 border-blue-400">
+          <h3 class="text-2xl font-semibold mb-3 text-[#0f172a]">🔧 Paso 1: Descargar y Ejecutar Stellarium</h3>
+          <p class="text-gray-700 text-base mb-4">Este simulador utiliza coordenadas reales, por lo que necesita conectarse con la API de Stellarium para extraer coordenadas Azimutales y Ecuatoriales.</p>
+          <a href="https://stellarium.org/es/" target="_blank" class="text-blue-600 font-medium hover:underline" style="font-weight: bold; font-size: 16;">🌐 stellarium.org</a>
+          <div class="mt-6">
+            <img src="img/Modelo_Telescopio/WhatsApp Image 2025-07-17 at 5.03.17 PM.jpeg" class="img-fluid rounded-xl shadow-lg mx-auto d-block" style="max-width: 700px;">
+          </div>
+        </div>
+
+        <!-- Paso 2 -->
+        <div class="bg-slate-200 shadow-xl rounded-2xl p-8 mb-8 border-l-4 border-green-400">
+          <h3 class="text-2xl font-semibold mb-3 text-[#0f172a]">⚙️ Paso 2: Configurar Stellarium</h3>
+          <ul class="list-disc list-inside text-gray-700 space-y-3 text-base">
+            <li>Presiona <strong>F2</strong> en tu computador.</li>
+            <li>Ve a la sección de <strong>Plugins</strong>.</li>
+            <div class="mt-4">
+              <img src="img/Modelo_Telescopio/WhatsApp Image 2025-07-17 at 5.03.33 PM.jpeg" class="img-fluid rounded-xl shadow-lg mx-auto d-block" style="max-width: 700px;">
+            </div>
+            <li>Activa la opción <strong>Control Remoto</strong> y marca “Cargar al inicio”.</li>
+            <div class="mt-4">
+              <img src="img/Modelo_Telescopio/WhatsApp Image 2025-07-17 at 5.03.48 PM.jpeg" class="img-fluid rounded-xl shadow-lg mx-auto d-block" style="max-width: 700px;">
+            </div>
+            <li>En la pestaña de configuración, activa el <strong>Servidor habilitado</strong> y guarda los cambios para que se conecte a tu computador.</li>
+            <div class="mt-4">
+              <img src="img/Modelo_Telescopio/WhatsApp Image 2025-07-17 at 5.04.00 PM.jpeg" class="img-fluid rounded-xl shadow-lg mx-auto d-block" style="max-width: 700px;">
+            </div>
+          </ul>
+        </div>
+
+        <!-- Paso 3 -->
+        <div class="bg-slate-200	 shadow-xl rounded-2xl p-8 mb-8 border-l-4 border-yellow-400">
+          <h3 class="text-2xl font-semibold mb-3 text-[#0f172a]">📥 Paso 3: Descargar el Simulador</h3>
+          <p class="text-gray-700 text-base">Descarga y descomprime el archivo. Asegúrate de tener instalado Unity en tu equipo para ejecutarlo correctamente.</p>
+          <a href="https://drive.google.com/file/d/1bX7-HDb6Q0hnHS7gWxhJmrX6jBfO_MHx/view?usp=sharing" target="_blank" class="text-blue-600 font-medium hover:underline" style="font-weight: bold; font-size: 16;">📎 Descargar simulador</a>
+          <div class="mt-6">
+            <img src="img/Modelo_Telescopio/WhatsApp Image 2025-07-17 at 5.04.14 PM.jpeg" class="img-fluid rounded-xl shadow-lg mx-auto d-block" style="max-width: 700px;">
+          </div>
+        </div>
+
+        <!-- Paso 4 -->
+        <div class="bg-slate-200 shadow-xl rounded-2xl p-8 mb-8 border-l-4 border-purple-400">
+          <h3 class="text-2xl font-semibold mb-3 text-[#0f172a]">🧪 Paso 4: Usar el Simulador</h3>
+          <p class="text-gray-700 text-base mb-4">Interactúa con las dos monturas (Ecuatorial y Azimutal). Selecciona un planeta o cuerpo celeste.</p>
+          <ul class="list-disc list-inside text-gray-700 space-y-3 text-base">
+            <li>Observa la fecha y coordenadas en tiempo real que proporciona Stellarium para mover las monturas.</li>
+            <li>Selecciona uno de los países en la parte inferior para ver el cambio de coordenadas y el cielo en la simulación.</li>
+            <li>Presiona el botón <strong>“Observar”</strong> para visualizar el cuerpo celeste o planeta seleccionado con su información detallada.</li>
+          </ul>
+          <div class="mt-6">
+            <img src="img/Modelo_Telescopio/WhatsApp Image 2025-07-17 at 5.04.32 PM.jpeg" class="img-fluid rounded-xl shadow-lg mx-auto d-block" style="max-width: 700px;">
+          </div>
+        </div>
+
+        <!-- Video -->
+        <div class="bg-slate-200 shadow-xl rounded-2xl p-8 border-l-4 border-indigo-400">
+          <h3 class="text-2xl font-semibold mb-3 text-[#0f172a]">🎥 Paso 5: Video de Referencia</h3>
+          <p class="text-gray-700 text-base">Mira este video tutorial que guía todo el proceso paso a paso:</p>
+          <a href="https://drive.google.com/file/d/1d9P4Lp6wplcHDR_nH7MVBQrmHMvMTOMC/view?usp=sharing" target="_blank" class="text-blue-600 font-medium hover:underline" style="font-weight: bold; font-size: 16;">▶️ Ver video</a>
+        </div>
+
+      </div>
+    </section>
+
+    <div class="px-40 flex flex-1 justify-center py-5">
+      <div class="layout-content-container flex flex-col max-w-[960px] flex-1">
+        <div class="flex flex-wrap justify-between gap-3 p-4">
+          <p class="text-[#101418] tracking-light text-[32px] font-bold leading-tight min-w-72">Planetas</p>
+        </div>
+        <div class="grid grid-cols-[repeat(auto-fit,minmax(158px,1fr))] gap-3 p-4">
+          <div class="flex flex-col gap-3 text-center pb-3">
+            <div class="px-4">
+              <div class="w-full bg-center bg-no-repeat aspect-square bg-cover rounded-full"
+                style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuBJwgsF4gKYqNtNhQDuo9D8bK_ZsqfakZvkLK2qoH3rPRGlqoz0qDVVEE911s902FarW-rS-3tgz1OmCabZuwUGdohVYENLd4jo5B4sRu-4LEYLvYaTosX2MkAIkS14k8XX4RffbWfvv1OcoJD_mq9T8OsxgAMvcEjh_K5Rpa0SNXi0sYNVXVayYukyUzsWxB8qmr7ope17QaeF_B2ZEsUe81huxq6aenjstEwYZSJX09Wm3YU7kAiVpbuQkRBMVLzKBZ3J-sQ3erOp");'>
+              </div>
+            </div>
+            <div>
+              <p class="text-[#101418] text-base font-medium leading-normal">Mercurio</p>
+              <p class="text-[#5c738a] text-sm font-normal leading-normal">El planeta más pequeño de nuestro sistema
+                solar.</p>
+            </div>
+          </div>
+          <div class="flex flex-col gap-3 text-center pb-3">
+            <div class="px-4">
+              <div class="w-full bg-center bg-no-repeat aspect-square bg-cover rounded-full"
+                style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuB1oU9VCsbwBfif-6wsmBNDwZJWGYfSPNdTd9uuAFSsOImKr3ud3cBA-6Pz9XTd-Ui5xK54KoYP0SROzWrveYwd7cSyICizwyyrvF-sd0cdnQ9nz4X9tmgrEfJHZtWiV3_Kr1HM-FrQ0nENOoVCxlMFoS40TaaG0wX3x5WcoAhE5Z6mil_29sXJj_fu2LfIHgpAPRpCjmZ18rUL8m7bm653m3cnjCFZObQGS-40h-598zGinjxBeNXFcQAdjtlcRsiVFSNX3tt32Nrb");'>
+              </div>
+            </div>
+            <div>
+              <p class="text-[#101418] text-base font-medium leading-normal">Venus</p>
+              <p class="text-[#5c738a] text-sm font-normal leading-normal">Conocido por su densa y tóxica atmósfera.</p>
+            </div>
+          </div>
+          <div class="flex flex-col gap-3 text-center pb-3">
+            <div class="px-4">
+              <div class="w-full bg-center bg-no-repeat aspect-square bg-cover rounded-full"
+                style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuBPSKg9uQKr-6rZ9hslK2UPO-YZ14uLNYXxIJfvkLqOrjz31-CLsIqdzztshtC1YK2CKl60OeH4nHf4d4Fbhu0sKu4iAf8R4sCGyiYHgB88x5eCBLPfqsdTwlIXlCWPNCsIdr1F02XjhKl59c-rw2UHf4OGOj3ohZgiCAmr3Ci5mzM7ULPslJO_3N4iaLxE-G4ulsfIyygFBkog4clymLYDsqMRAG8Ob4BSNnttBl3Q6nbaR83nVxzl-5jouYNa3Rs-71dz9RQqOHyi");'>
+              </div>
+            </div>
+            <div>
+              <p class="text-[#101418] text-base font-medium leading-normal">Tierra</p>
+              <p class="text-[#5c738a] text-sm font-normal leading-normal">Nuestro planeta hogar, rebosante de vida.</p>
+            </div>
+          </div>
+          <div class="flex flex-col gap-3 text-center pb-3">
+            <div class="px-4">
+              <div class="w-full bg-center bg-no-repeat aspect-square bg-cover rounded-full"
+                style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuB4iIkuJdUevAMMo0fhpkh8dRdtD3atr7YqV0mkfCxuLWfcfMvkORoxU_EyNh8ud9clKStFzCyTGjaY7dwqrndvUM0JHum70nXXr86XcD2k7qIEXaa6bYKpGazPghq3cfQA7bUGPGFccyudtoeUN-D_3MUg-wBXougFKyM0-88Z8f6O3HO3CcWz6oc5pi7KJGSlVwWhard_6P0EJ_cT46ABRckDMiHY0y1B6GkBXGIHZK8VQGNmL9a4GBJZq9P0iv6Vmyc1s9hmbi6V");'>
+              </div>
+            </div>
+            <div>
+              <p class="text-[#101418] text-base font-medium leading-normal">Marte</p>
+              <p class="text-[#5c738a] text-sm font-normal leading-normal">El 'Planeta Rojo' con potencial para albergar
+                vida</p>
+            </div>
+          </div>
+          <div class="flex flex-col gap-3 text-center pb-3">
+            <div class="px-4">
+              <div class="w-full bg-center bg-no-repeat aspect-square bg-cover rounded-full"
+                style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuANqumBfTrYWuNUh0OEyyyW_e18ovU4uNiORWyWlTxpI1f1A6Wb_KsYhuRuGqEuPcjTcKh-I6i3Mgnucu-P-k3bqA44KpdruEE5yTmhOuaBFV_ef-8RpIudFAK8EY8gVPbUhYgAwEPRinndfLRx-_OPlemEcABojJaUasNkn6jQK4fXd2EeVPB5SsYLQXTIvZKpHUlBS37M3BWYjYQcdf-M-uWAjJKW12yvQMF7Lyi5ucV57CoHTsCnJ5ApDuxVkpFAh0HwQ9IMsHoO");'>
+              </div>
+            </div>
+            <div>
+              <p class="text-[#101418] text-base font-medium leading-normal">Jupiter</p>
+              <p class="text-[#5c738a] text-sm font-normal leading-normal">El planeta más grande con una tormenta gigante.
+              </p>
+            </div>
+          </div>
+          <div class="flex flex-col gap-3 text-center pb-3">
+            <div class="px-4">
+              <div class="w-full bg-center bg-no-repeat aspect-square bg-cover rounded-full"
+                style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuAwyek2NdE6eeNZX1EY3wx1mt3-hJ5aXDV5bMLAdg4jYIfNhek5X-55H2xAFtcSRBdw5hOupdKSSKbk2OJh_gIYa4J4tjbbCTrOmbnENJ89C_APQo4pm2YI2qhO1mfXSXHuF2zJQWCoGFkShAs8DmbiuDEmytsVA6aMgazHPkww1E6tnz1pyJFA-MCeiTSSj5IdPTCV_64fKEkC3G65CVw-WP00xf9jZoQEqc2A2K-4pOLl2P9aCELXCfa13zzBsbMowGgJu1Yip3J7");'>
+              </div>
+            </div>
+            <div>
+              <p class="text-[#101418] text-base font-medium leading-normal">Saturno</p>
+              <p class="text-[#5c738a] text-sm font-normal leading-normal">Famoso por sus impresionantes anillos.</p>
+            </div>
+          </div>
+          <div class="flex flex-col gap-3 text-center pb-3">
+            <div class="px-4">
+              <div class="w-full bg-center bg-no-repeat aspect-square bg-cover rounded-full"
+                style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuDiUKb7yhUwnTK3ZFFJhj6OfDbfqt-6wQhxb3IG0dMelMMwA8FQ1eNB12gBKV7vsVB4GPxQfalqbca5bsdFbr6d5KeSdEguT0fHxfRy3iqqWrMbSf2BZe35PbwaoVC0BMCqL09NvTWRCRiLsgndt0opSg5HAl6yDhC7OqwC9EyVC2h_q8Gc5WyxqWJbgcWyGDE0aVjLN-5XMnK7Jx34bG3hkn-lu5nxHhab2_7Ur6O1g7BDVj3j4LL52hPCt_JdcIuu_jK5BPVd14o-");'>
+              </div>
+            </div>
+            <div>
+              <p class="text-[#101418] text-base font-medium leading-normal">Urano</p>
+              <p class="text-[#5c738a] text-sm font-normal leading-normal">Un gigante frío y helado con un tenue sistema
+                de anillos.</p>
+            </div>
+          </div>
+          <div class="flex flex-col gap-3 text-center pb-3">
+            <div class="px-4">
+              <div class="w-full bg-center bg-no-repeat aspect-square bg-cover rounded-full"
+                style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuDzAw88nlz3x004Pf6HOeaauP6rEYL2Lt6pFQACMJ8hcXDc4FM6oYBiqv7HGyt6KUy4u5HX7QUlWeIFqPdLtyzsbgXBDZIR5V0_87rxAhS3h_D5VVd8qbVBel8HORqOjUz1Lbz-ZNLkfGI61JTzjUqz3kh6K4o-ZCqisv6mQI9JdzUmXguOkdkQmg4Y7fWQqkyNNcX7rtk0S0MGQTJubUGWutNSZO1hoKDAUdHfrS8kjrQ-Y0-tPWRIdVG549c5LOT9e3ozINwPsiDx");'>
+              </div>
+            </div>
+            <div>
+              <p class="text-[#101418] text-base font-medium leading-normal">Neptuno</p>
+              <p class="text-[#5c738a] text-sm font-normal leading-normal">El planeta más distante, un gigante de hielo
+                azul.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    </div>
+    </div>
+    
+<div class="seccion-encabezado">
+        <h4>ACTIVIDADES</h4>
+        <div class="line-dec"></div>
+    </div>
+
+    <!-- Carrusel personalizado de servicios -->
+    <div id="serviceCarousel" class="carousel slide" data-bs-ride="carousel">
+        <div class="carousel-inner">
+
+            <div class="carousel-item active">
+                <div class="d-flex justify-content-center">
+                    <div class="service-item m-3" onclick="window.location.href='objetivos.html'">
+                        <div class="icon">
+                            <img src="img/objetivos.png" alt="Objetivos" style="width: 32px; height: 32px;">
+                        </div>
+                        <h4>OBJETIVOS</h4>
+                        <p>Objetivos del proyecto</p>
+                    </div>
+
+                    <div class="service-item m-3" onclick="window.location.href='mapa_estelar.html'">
+                        <div class="icon">
+                            <img src="img/mapa estelar.png" alt="Mapa Estelar" style="width: 32px; height: 32px;">
+                        </div>
+                        <h4>MAPA ESTELAR</h4>
+                        <p>Visualiza constelaciones y planetas visibles según tu ubicación.</p>
+                    </div>
+
+                    <div class="service-item m-3" onclick="window.location.href='estacion_meteorologica.html'">
+                        <div class="icon">
+                            <img src="img/estacion-meteorologica.png" alt="Estación Meteorológica"
+                                style="width: 32px; height: 32px;">
+                        </div>
+                        <h4>ESTACIÓN METEOROLÓGICA</h4>
+                        <p>Consulta datos climáticos en tiempo real desde nuestra estación.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="carousel-item">
+                <div class="d-flex justify-content-center">
+                    <div class="service-item m-3" onclick="window.location.href='chat_bot.html'">
+                        <div class="icon">
+                            <img src="img/chatbot.png" alt="Chat Bot" style="width: 32px; height: 32px;">
+                        </div>
+                        <h4>CHAT BOT</h4>
+                        <p>Conoce las recomendaciones que tenemos para ti, fechas clave para ver astros, eclipses y
+                            clima.</p>
+                    </div>
+                    <div class="service-item m-3" onclick="window.location.href='eventos.html'">
+                        <div class="icon">
+                            <img src="img/proximos eventos.png" alt="Próximos Eventos del Club"
+                                style="width: 32px; height: 32px;">
+                        </div>
+                        <h4>PRÓXIMOS EVENTOS</h4>
+                        <p>Consulta eventos astronómicos y actividades del club.</p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <button class="carousel-control-prev" type="button" data-bs-target="#serviceCarousel" data-bs-slide="prev">
+            <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="black" viewBox="0 0 16 16">
+                <path d="M11 1.5L4.5 8 11 14.5V1.5z"/>
+            </svg>
+        </button>
+
+        <button class="carousel-control-next" type="button" data-bs-target="#serviceCarousel" data-bs-slide="next">
+            <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="black" viewBox="0 0 16 16">
+                <path d="M5 1.5L11.5 8 5 14.5V1.5z"/>
+            </svg>
+        </button>
+    </div>
+
+    <style>
+        #serviceCarousel .carousel-inner {
+            min-height: 300px; /* Ajusta según tu diseño */
+            position: relative;
+            padding: 20px;
+        }
+
+        /* Contenedor del slide */
+        .carousel-item .d-flex {
+            justify-content: center; /* centrar elementos */
+            flex-wrap: nowrap; /* mantenerlos en línea */
+            gap: 5px; /* espacio entre ítems */
+        }
+
+        /* Ítem individual */
+        .service-item {
+            width: 25%;
+            height: 200px;
+            padding: 5px;
+            border-radius: 12px;
+            background-color: #ffffff;
+            text-align: center;
+            cursor: pointer;
+            box-shadow: 0 10px 15px rgba(0, 0, 0, 0.336);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            flex-shrink: 0;
+            font-weight: bold;
+        }
+
+        /* Efecto hover */
+        .service-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Centrado del icono */
+        .icon {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .icon img {
+            margin-bottom: 10px;
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+            max-width: 100%;
+        }
+    </style>
+    
+
+    <!-- Script de control -->
+    <script>
+        const carrusel = document.getElementById('carrusel');
+        const totalSlides = carrusel.children.length;
+        let currentIndex = 0;
+
+        function updateSlide() {
+            const width = carrusel.clientWidth;
+            carrusel.scrollTo({
+                left: width * currentIndex,
+                behavior: 'smooth'
+            });
+        }
+
+        function nextSlide() {
+            currentIndex = (currentIndex + 1) % totalSlides;
+            updateSlide();
+        }
+
+        function prevSlide() {
+            currentIndex = (currentIndex - 1 + totalSlides) % totalSlides;
+            updateSlide();
+        }
+
+        // Auto-play opcional
+        // setInterval(nextSlide, 5000);
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <footer class="site-footer">
+        <div class="container">
+            <div class="row">
+            <div class="col-md-12 footer-content">
+                <p class="club-name">🌌 Club de Astronomía - OrionX</p>
+                <p class="project-info">Infraestructura de TI - II · Semestre 2025-2025 · UCE</p>
+                <p class="copyright-text">
+                &copy; 2025 <strong>OrionX</strong>
+                </p>
+            </div>
+            </div>
+        </div>
+    </footer>
+
+    <style>
+        .site-footer {
+        background: linear-gradient(to right, #0f172a, #1e293b);
+        color: #cbd5e1;
+        padding: 10px 0;
+        font-size: 14px;
+        text-align: center;
+        border-top: 3px solid #3b82f6;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        .footer-content p {
+        margin: 8px 0;
+        }
+
+        .club-name {
+        font-size: 16px;
+        font-weight: bold;
+        color: #ffffff;
+        letter-spacing: 1px;
+        }
+
+        .project-info {
+        font-size: 16px;
+        color: #94a3b8;
+        }
+
+        .footer-credit {
+        font-size: 14px;
+        color: #64748b;
+        }
+
+        .site-footer a {
+        color: #60a5fa;
+        text-decoration: none;
+        font-weight: bold;
+        }
+
+        .site-footer a:hover {
+        text-decoration: underline;
+        color: #93c5fd;
+        }
+    </style>
+  </body>
+
+</html>
