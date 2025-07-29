@@ -1,0 +1,420 @@
+<html>
+
+<head>
+  <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin="" />
+  <link rel="stylesheet" as="style" onload="this.rel='stylesheet'"
+    href="https://fonts.googleapis.com/css2?display=swap&family=Noto+Sans%3Awght%40400%3B500%3B700%3B900&family=Space+Grotesk%3Awght%40400%3B500%3B700" />
+
+  <title>Stitch Design</title>
+  <link rel="icon" type="image/x-icon" href="data:image/x-icon;base64," />
+
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Consulta datos meteorológicos, visualiza estaciones y eventos con OrionX.">
+  <title>Club OrionX - Estacion Meteorologica</title>
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800">
+  <link rel="stylesheet" href="styles/style2.css">
+  <link rel="stylesheet" href="styles/hero-slider2.css">
+  <link rel="stylesheet" href="styles/tooplate-style2.css">
+  <link rel="stylesheet" href="styles/style_pagina_mapas2.css" />
+
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<style>
+    /* Contenedor principal estilizado */
+    .objectives-container {
+      background: #fff;
+      border-radius: 0.75rem;
+      box-shadow: 0 0.5rem 1rem rgb(0 0 0 / 0.1);
+      padding: 2rem;
+      max-width: 960px;
+      margin: 2rem auto;
+      text-align: center; /* Centrar todo texto dentro */
+    }
+
+    /* Títulos más grandes y centrados */
+    h2.fw-bold {
+      font-size: 3rem;
+      margin-bottom: 1.5rem;
+    }
+    h3.fw-bold {
+      font-size: 2rem;
+      margin-bottom: 1.25rem;
+    }
+
+    /* Checkboxes personalizados */
+    .form-check-input {
+      position: absolute;
+      opacity: 0;
+      cursor: pointer;
+      height: 0;
+      width: 0;
+    }
+
+    .custom-checkbox {
+      position: relative;
+      padding-left: 2.5rem;
+      cursor: pointer;
+      user-select: none;
+      font-size: 1.2rem;
+      color: #212529;
+      display: inline-block; /* Para que el label se ajuste al contenido centrado */
+      line-height: 1.4;
+      text-align: left; /* texto checkbox alineado a la izquierda */
+      max-width: 650px; /* límite ancho para que no se expanda demasiado */
+    }
+
+    /* Caja visible del checkbox */
+    .custom-checkbox::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 50%;
+      transform: translateY(-50%);
+      height: 1.5rem;
+      width: 1.5rem;
+      border: 2px solid #467fb8;
+      border-radius: 0.375rem;
+      background: white;
+      transition: background-color 0.3s, border-color 0.3s;
+    }
+
+    /* Icono check SVG escondido por defecto */
+    .custom-checkbox svg {
+      position: absolute;
+      left: 0.2rem;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 1.1rem;
+      height: 1.1rem;
+      fill: #467fb8;
+      opacity: 0;
+      transition: opacity 0.3s;
+      pointer-events: none;
+    }
+
+    /* Mostrar icono check cuando está marcado */
+    .form-check-input:checked + .custom-checkbox::before {
+      background-color: #467fb8;
+      border-color: #467fb8;
+    }
+
+    .form-check-input:checked + .custom-checkbox svg {
+      opacity: 1;
+    }
+
+    /* Centrar los elementos form-check para que queden en columna centrada */
+    form > div.position-relative {
+      display: flex;
+      margin-bottom: 1rem;
+    }
+  </style>  <!-- Bootstrap CSS (si no lo tienes incluido, incluye esto) -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+</head>
+
+<body>
+  <header
+    class="flex items-center justify-between whitespace-nowrap border-b border-solid border-b-[#293542] px-10 py-3 bg-[#14191f] dark group/design-root relative overflow-x-hidden">
+    <div class="flex items-center gap-4 text-white">
+      <a class="text-white text-lg font-bold leading-tight tracking-[-0.015em]" href='index.html'>OrionX</a>
+    </div>
+    <div class="flex flex-1 justify-end gap-8">
+      <div class="flex items-center gap-9">
+        <a class="text-white text-sm font-medium leading-normal" href='index.html'>Universo</a>
+        <a class="text-white text-sm font-medium leading-normal" href='eventos.html'>Eventos</a>
+        <a class="text-white text-sm font-medium leading-normal" href="estacion_meteorologica.html">Mapas</a>
+      </div>
+      <div class="flex gap-2">
+        <button
+          class="flex max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 bg-[#293542] text-white gap-2 text-sm font-bold leading-normal tracking-[0.015em] min-w-0 px-2.5">
+          <div class="text-white" data-icon="MagnifyingGlass" data-size="20px" data-weight="regular">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20px" height="20px" fill="currentColor"
+              viewBox="0 0 256 256">
+              <path
+                d="M229.66,218.34l-50.07-50.06a88.11,88.11,0,1,0-11.31,11.31l50.06,50.07a8,8,0,0,0,11.32-11.32ZM40,112a72,72,0,1,1,72,72A72.08,72.08,0,0,1,40,112Z">
+              </path>
+            </svg>
+          </div>
+        </button>
+      </div>
+    </div>
+  </header>
+  
+<div class="objetivos-container">
+  <h2>🚀 Objetivos del Club de Astronomía y Tecnología</h2>
+
+  <ul class="objetivos-lista">
+    <li><strong>🎯 Objetivo General:</strong> Fomentar la exploración del universo a través de proyectos tecnológicos innovadores que integren astronomía, ingeniería en sistemas y ciencias de la computación, promoviendo la colaboración, educación y divulgación científica.</li>
+
+    <li>🔭 Fomentar el interés por la astronomía mediante actividades prácticas y tecnológicas.</li>
+    <li>💻 Integrar conocimientos de ingeniería en sistemas con la exploración astronómica.</li>
+    <li>🌌 Promover la divulgación científica mediante plataformas digitales interactivas.</li>
+    <li>🌍 Desarrollar simuladores astronómicos 3D en Unity para representar planetas y eventos celestes.</li>
+    <li>🌦️ Conectar APIs como Visual Crossing para mostrar condiciones meteorológicas ideales para la observación astronómica.</li>
+    <li>🛰️ Implementar una estación meteorológica con Arduino y sensores, visualizando datos en tiempo real mediante MQTT.</li>
+    <li>🤖 Desarrollar un chatbot especializado en responder preguntas sobre astronomía y tecnología usada en el club.</li>
+    <li>🧭 Simular el comportamiento de telescopios con montura ecuatorial y altazimutal mediante Unity.</li>
+    <li>📡 Automatizar telescopios con microcontroladores para seguimiento celeste preciso.</li>
+    <li>📱 Desarrollar apps web/móviles que integren datos astronómicos y meteorológicos para la planificación de observaciones.</li>
+    <li>🧠 Aplicar algoritmos de IA para clasificar imágenes astronómicas y reconocer objetos celestes.</li>
+    <li>🛠️ Construir dashboards interactivos con gráficas en tiempo real de datos recolectados desde sensores o APIs.</li>
+    <li>🎓 Facilitar guías interactivas y recursos educativos sobre programación, astronomía, sensores y APIs.</li>
+    <li>🌐 Mostrar todos los proyectos integrados en una página web central del club con un diseño moderno y educativo.</li>
+    <li>✨ Fomentar la colaboración entre estudiantes de distintas disciplinas para crear proyectos tecnológicos de impacto.</li>
+    <li>📷 Realizar sesiones de astrofotografía para documentar eventos celestes y técnicas de captura.</li>
+    <li>🔧 Investigar y aplicar nuevas tecnologías para mejorar la precisión y eficiencia en la observación astronómica.</li>
+    <li>🗓️ Organizar eventos y talleres periódicos para actualizar conocimientos y promover el intercambio de ideas.</li>
+    <li>📡 Desarrollar sistemas de comunicación y transmisión de datos desde equipos astronómicos remotos.</li>
+    <li>🖥️ Evaluar y comparar software y herramientas digitales para astronomía y meteorología.</li>
+    <li>🎙️ Promover la divulgación científica a través de podcasts, videos y transmisiones en vivo.</li>
+  </ul>
+</div>
+
+<style>
+  .objetivos-container {
+    background-color: #ffffff;
+    padding: 40px;
+    border-radius: 20px;
+    max-width: 900px;
+    margin: 50px auto;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: #333333;
+  }
+
+  .objetivos-container h2 {
+    color: #1e3a8a;
+    font-size: 2.4em;
+    margin-bottom: 25px;
+    text-align: center;
+  }
+
+  .objetivos-lista {
+    list-style: none;
+    padding: 0;
+  }
+
+  .objetivos-lista li {
+    font-size: 1.4em;
+    margin-bottom: 18px;
+    padding-left: 10px;
+    border-left: 4px solid #60a5fa;
+    transition: all 0.3s ease-in-out;
+  }
+
+  .objetivos-lista li:hover {
+    background-color: #f0f8ff;
+    border-left-color: #3b82f6;
+    transform: translateX(5px);
+  }
+
+  .objetivos-lista li strong {
+    color: #1e40af;
+  }
+
+  @media (max-width: 768px) {
+    .objetivos-container {
+      padding: 25px;
+    }
+
+    .objetivos-lista li {
+      font-size: 1.2em;
+    }
+
+    .objetivos-container h2 {
+      font-size: 2em;
+    }
+  }
+</style>
+
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+  <div class="seccion-encabezado">
+        <h4>ACTIVIDADES</h4>
+        <div class="line-dec"></div>
+    </div>
+
+    <!-- Carrusel personalizado de servicios -->
+    <div id="serviceCarousel" class="carousel slide" data-bs-ride="carousel">
+        <div class="carousel-inner">
+
+            <div class="carousel-item active">
+                <div class="d-flex justify-content-center">
+                    <div class="service-item m-3" onclick="window.location.href='objetivos.html'">
+                        <div class="icon">
+                            <img src="img/objetivos.png" alt="Objetivos" style="width: 32px; height: 32px;">
+                        </div>
+                        <h4>OBJETIVOS</h4>
+                        <p>Objetivos del proyecto</p>
+                    </div>
+
+                    <div class="service-item m-3" onclick="window.location.href='mapa_estelar.html'">
+                        <div class="icon">
+                            <img src="img/mapa estelar.png" alt="Mapa Estelar" style="width: 32px; height: 32px;">
+                        </div>
+                        <h4>MAPA ESTELAR</h4>
+                        <p>Visualiza constelaciones y planetas visibles según tu ubicación.</p>
+                    </div>
+
+                    <div class="service-item m-3" onclick="window.location.href='estacion_meteorologica.html'">
+                        <div class="icon">
+                            <img src="img/estacion-meteorologica.png" alt="Estación Meteorológica"
+                                style="width: 32px; height: 32px;">
+                        </div>
+                        <h4>ESTACIÓN METEOROLÓGICA</h4>
+                        <p>Consulta datos climáticos en tiempo real desde nuestra estación.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="carousel-item">
+                <div class="d-flex justify-content-center">
+                    <div class="service-item m-3" onclick="window.location.href='chat_bot.html'">
+                        <div class="icon">
+                            <img src="img/chatbot.png" alt="Chat Bot" style="width: 32px; height: 32px;">
+                        </div>
+                        <h4>CHAT BOT</h4>
+                        <p>Conoce las recomendaciones que tenemos para ti, fechas clave para ver astros, eclipses y
+                            clima.</p>
+                    </div>
+                    <div class="service-item m-3" onclick="window.location.href='eventos.html'">
+                        <div class="icon">
+                            <img src="img/proximos eventos.png" alt="Próximos Eventos del Club"
+                                style="width: 32px; height: 32px;">
+                        </div>
+                        <h4>PRÓXIMOS EVENTOS</h4>
+                        <p>Consulta eventos astronómicos y actividades del club.</p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <button class="carousel-control-prev" type="button" data-bs-target="#serviceCarousel" data-bs-slide="prev">
+            <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="black" viewBox="0 0 16 16">
+                <path d="M11 1.5L4.5 8 11 14.5V1.5z"/>
+            </svg>
+        </button>
+
+        <button class="carousel-control-next" type="button" data-bs-target="#serviceCarousel" data-bs-slide="next">
+            <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="black" viewBox="0 0 16 16">
+                <path d="M5 1.5L11.5 8 5 14.5V1.5z"/>
+            </svg>
+        </button>
+    </div>
+
+    <style>
+        #serviceCarousel .carousel-inner {
+            min-height: 200px; /* Ajusta según tu diseño */
+            position: relative;
+            padding: 20px;
+        }
+
+        /* Contenedor del slide */
+        .carousel-item .d-flex {
+            justify-content: center; /* centrar elementos */
+            flex-wrap: nowrap; /* mantenerlos en línea */
+            gap: 5px; /* espacio entre ítems */
+        }
+
+        /* Ítem individual */
+        .service-item {
+            width: 25%;
+            height: 200px;
+            padding: 20px;
+            border-radius: 12px;
+            background-color: #ffffff;
+            text-align: center;
+            cursor: pointer;
+            box-shadow: 0 10px 15px rgba(0, 0, 0, 0.336);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            flex-shrink: 0;
+            font-weight: bold;
+        }
+
+        /* Efecto hover */
+        .service-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Centrado del icono */
+        .icon {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .icon img {
+            margin-bottom: 10px;
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+            max-width: 100%;
+        }
+    </style>
+    <footer class="site-footer">
+        <div class="container">
+            <div class="row">
+            <div class="col-md-12 footer-content">
+                <p class="club-name">🌌 Club de Astronomía - OrionX</p>
+                <p class="project-info">Infraestructura de TI - II · Semestre 2025-2025 · UCE</p>
+                <p class="copyright-text">
+                &copy; 2025 <strong>OrionX</strong>
+                </p>
+            </div>
+            </div>
+        </div>
+    </footer>
+
+    <style>
+        .site-footer {
+        background: linear-gradient(to right, #0f172a, #1e293b);
+        color: #cbd5e1;
+        padding: 10px 0;
+        font-size: 14px;
+        text-align: center;
+        border-top: 3px solid #3b82f6;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        .footer-content p {
+        margin: 8px 0;
+        }
+
+        .club-name {
+        font-size: 16px;
+        font-weight: bold;
+        color: #ffffff;
+        letter-spacing: 1px;
+        }
+
+        .project-info {
+        font-size: 16px;
+        color: #94a3b8;
+        }
+
+        .footer-credit {
+        font-size: 14px;
+        color: #64748b;
+        }
+
+        .site-footer a {
+        color: #60a5fa;
+        text-decoration: none;
+        font-weight: bold;
+        }
+
+        .site-footer a:hover {
+        text-decoration: underline;
+        color: #93c5fd;
+        }
+    </style>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>
